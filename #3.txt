@@ -1,0 +1,22 @@
+import re
+
+# Patterns for detecting vulnerabilities
+
+SQL_INJECTION_PATTERN = re.compile(r"(?:'|\"|;|\b(?:AND|OR)\b|\b(?:UNION|SELECT|INSERT|UPDATE|DELETE|DROP)\b)", re.IGNORECASE)
+XSS_PATTERN = re.compile(r"(?:<\s*script\b[^>]*>|<\s*img\b[^>]*>|<\s*a\b[^>]*>)", re.IGNORECASE)
+CSRF_PATTERN = re.compile(r"(?:<\s*form\b[^>]*>)", re.IGNORECASE)
+CLICKJACKING_PATTERN = re.compile(r"(?:<\s*iframe\b[^>]*>)", re.IGNORECASE)
+
+def detect_vulnerabilities(input_string):
+    if SQL_INJECTION_PATTERN.search(input_string):
+        print("Potential SQL Injection detected.")
+    if XSS_PATTERN.search(input_string):
+        print("Potential XSS detected.")
+    if CSRF_PATTERN.search(input_string):
+        print("Potential CSRF detected.")
+    if CLICKJACKING_PATTERN.search(input_string):
+        print("Potential Clickjacking detected.")
+
+# Testing (change test string)
+        
+detect_vulnerabilities('test string')

@@ -1,0 +1,21 @@
+#!/bin/bash
+
+# Function to generate MD5 hash
+function generate_md5() {
+    echo -n $1 | md5sum | awk '{print $1}'
+}
+
+# Function to generate SHA1 hash
+function generate_sha1() {
+    echo -n $1 | sha1sum | awk '{print $1}'
+}
+
+# Function to generate SHA256 hash
+function generate_sha256() {
+    echo -n $1 | sha256sum | awk '{print $1}'
+}
+
+# Test the functions
+generate_md5 "test"
+generate_sha1 "test"
+generate_sha256 "test"

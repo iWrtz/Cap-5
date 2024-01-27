@@ -1,0 +1,16 @@
+import nmap
+
+scanner = nmap.PortScanner()
+
+# Scan ports 1-1000 on 10.8.2.113
+
+result = scanner.scan(hosts='10.8.2.113', ports='1-1000')
+
+# Print IP localhost address and the open ports 1-1000
+
+for host in result['scan']:
+    if result['scan'][host]['status']['state'] == 'up':
+        print(f'Hosts: {host} is up')
+        for port in result['scan'][host]['tcp']:
+            if result ['scan'][host]['tcp'][port]['state'] == 'open':
+                print(f'\tPort {port} is open')

@@ -1,0 +1,32 @@
+import requests
+from pycountry_convert import country_alpha2_to_continent_code, country_name_to_country_alpha2
+
+def get_continent(country_name):
+    try:
+        country_code = country_name_to_country_alpha2(country_name)
+        return country_alpha2_to_continent_code(country_code)
+    except:
+        return None
+
+def get_location(ip):
+    try:
+        response = requests.get(f'http://ip-api.com/json/{ip}')
+        data = response.json()
+        country = data.get('country')
+        return {
+            'IP': ip,
+            'Country': country,
+            'City': data.get('city'),
+            'Country Code': data.get('countryCode'),
+            'Continent': get_continent(country)
+        }
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        return None
+
+ip_addresses = ['8.8.8.8', '76.76.2.0', '1.1.1.1', '185.228.169.9'] 
+
+for ip in ip_addresses:
+    location = get_location(ip)
+    if location:
+        print(location)
